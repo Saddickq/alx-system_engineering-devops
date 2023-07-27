@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# This shell script displays Best School 10 times
+
+msg="Best School"
+indx=0
+for ((indx=0; indx < 10; indx++));
+do
+	echo "$msg";
+done;
