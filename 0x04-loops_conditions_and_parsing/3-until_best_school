@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Display Best School using the until loop
+
+msg="Best School"
+indx=1
+
+until ((indx > 10));
+do
+	echo "$msg"
+	((indx++))
+done;
