@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# Display Best School but on the 9th iteration display Hi
+
+msg="Best School"
+text="Hi"
+indx=0
+
+while ((indx < 10));
+do
+	if [ $indx -eq 9 ];
+	then
+		echo "$text"
+	fi
+	echo "$msg"
+	((indx++));
+done;
