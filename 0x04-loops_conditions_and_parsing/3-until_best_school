@@ -2,11 +2,7 @@
 # Display Best School using the until loop
 
 msg="Best School"
-<<<<<<< HEAD
 indx=1
-=======
-indx=0
->>>>>>> 94032a02d52fde73235a2a3c7c2e1f63b8caca33
 
 until ((indx > 10));
 do
