@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Displaying Best School 10 times using while loop
+
+
+msg="Best School"
+indx=0
+
+while ((indx < 10));
+do
+	echo "$msg"
+	((indx=indx+1));
+done;
