@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Prints only the username, user id and home directory
+# path for the user of the /etc/passwd
+
+file_name="/etc/passwd"
+
+while read -r line;
+do
+	echo "$line" | cut -d ":" -f1,3,6;
+done < "$file_name";
+
