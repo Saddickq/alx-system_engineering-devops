@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# You cannot use pgrep
+# shellcheck disable=SC2009
+ps -auxf | grep bash
