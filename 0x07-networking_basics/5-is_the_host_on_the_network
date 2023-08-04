@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Ping an IP address passed as an argument
+
+argv=$1
+argc=$#
+number_of_requests=5
+
+if ((argc == 0))
+then
+	echo "Usage: 5-is_the_host_on_the_network {IP_ADDRESS}"
+else
+	ping -c "$number_of_requests" "$argv"
+fi
