@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# messes etc hosts
+# shellcheck disable=SC1003
+sudo cp /etc/hosts ~/hosts.new
+sed -i -e 's/^127.*$/127.0.0.2\tlocalhost/' -e '$a\'$'\n''8.8.8.8\tfacebook.com' ~/hosts.new
+sudo cp -f ~/hosts.new /etc/hosts
