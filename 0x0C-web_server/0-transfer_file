@@ -8,6 +8,7 @@ path_key=$4
 
 if [ $# -lt 4 ]; then
 	echo "Usage: 0-transfer_file PATH_TO_FILE IP USERNAME PATH_TO_SSH_KEY"
+	exit
 else
-	scp -i "$path_key" "$file" "$user@$ip:~"
+	scp -i "$path_key" -o StrictHostKeyChecking=no "$file" "$user@$ip:~"
 fi;
