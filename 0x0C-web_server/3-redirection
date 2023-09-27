@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# Install a web server to serve webpages on requests.
+
+# update system and dependencies.
+sudo apt update -y
+# Install nginx web server.
+sudo apt install -y nginx
+# storing Hello World in the nginx default html file
+# so when curl is used it return Hello World instead of the default ngnix page
+echo 'Hello World!' | sudo tee /var/www/html/index.nginx-debian.html
+
+# change owner of the file /etc/nginx/sites-available/default to allow editing
+sudo chown -R "$USER" /etc/nginx/sites-available
+# configure the ubuntu server to redirect to a particular location on the web
+echo 'server {
+                listen 80 default_server;
+                listen [::]:80 default_server;
+
+                root /var/www/html;
+                index index.html index.htm index.nginx-debian.html;
+
+                server_name _;
+
+                location /redirect_me {
+                        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+                }
+}' > /etc/nginx/sites-available/default
+# Restarting nginx to aapply all configurations
+sudo service nginx restart
