@@ -3,7 +3,7 @@
 
 # update system and dependencies.
 sudo apt update -y
-echo \nPLEASE WAIT...\n
+echo -e "\nPLEASE WAIT...\n"
 # Install nginx web server.
 sudo apt install -y nginx
 # storing Hello World in the nginx default html file
