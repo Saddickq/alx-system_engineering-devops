@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+# Install a web server to serve webpages on requests.
+nginx_config='/etc/nginx/sites-available/default'
+# update system and dependencies.
+sudo apt update -y
+# Install nginx web server.
+sudo apt install -y nginx
+# Install HAproxy
+sudo apt install haproxy -y
+
+# keep backup of index.nginx-debian.html
+sudo chown -R "$USER" /var/www/html
+if [ ! -e "/var/www/html/index.nginx-debian_bkp.html" ];
+then
+        cp /var/www/html/index.nginx-debian.html /var/www/html/index.nginx-debian_bkp.html
+        echo "Created Backup for Nginx default landing page"
+fi;
+# storing Hello World in the nginx default html file
+echo 'Hello World!' > /var/www/html/index.nginx-debian.html
+# Create a custom page not found error
+echo "Ceci n'est pas une page" > /var/www/html/not_found.html
+
+# change owner of the file /etc/nginx/sites-available/default to allow editing
+sudo chown -R "$USER" /etc/nginx/sites-available
+sudo chown -R "$USER" /etc/haproxy
+# keep backup of configuration file
+if [ ! -e "/etc/nginx/sites-available/default_bkp" ];
+then
+        cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default_bkp
+        echo "Created Backup for Nginx configuration file"
+fi;
+# configure the ubuntu server to redirect to a particular location on the web
+if ! grep 'location /redirect_me {' "$nginx_config"; then
+        sed -i '/server_name _;/a\\tlocation /redirect_me {\n\t\treturn 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\n\t}' "$nginx_config"
+fi
+if ! grep 'error_page 404 /not_found.html;' "$nginx_config"; then
+        sed -i '/server_name _;/a\\terror_page 404 /not_found.html;\n\n\tlocation /not_found.html {\n\t\troot /var/www/html;\n\t}' "$nginx_config"
+fi
+if ! grep 'add_header X-Served-By' "$nginx_config"; then
+        sed -i '/server_name _;/a\\tadd_header X-Served-By "$hostname";\n' "$nginx_config"
+fi
+# configuration for HAproxy
+if ! grep 'backend my_backend' /etc/haproxy/haproxy.cfg; then
+        echo "backend my_backend
+        balance roundrobin
+        server 271786-web-01 saddiq.tech:80 check
+        server 271786-web-02 34.229.49.155:80 check" >> /etc/haproxy/haproxy.cfg
+fi
+# Restarting HAproxy via an init script
+sudo /etc/init.d/haproxy restart
+# Restarting nginx to aapply all configurations
+sudo service nginx restart
