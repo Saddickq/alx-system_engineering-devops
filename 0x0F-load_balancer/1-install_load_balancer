@@ -43,7 +43,7 @@ fi
 if ! grep 'backend my_backend' /etc/haproxy/haproxy.cfg; then
         echo "backend my_backend
         balance roundrobin
-        server 271786-web-01 saddiq.tech:80 check
+        server 271786-web-01 100.26.164.241:80 check
         server 271786-web-02 34.229.49.155:80 check" >> /etc/haproxy/haproxy.cfg
 fi
 # Restarting HAproxy via an init script
