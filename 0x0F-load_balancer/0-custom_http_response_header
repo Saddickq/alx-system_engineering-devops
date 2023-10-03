@@ -15,6 +15,8 @@ else
         echo "Backup Failed"
         exit
 fi;
+# Create a custom page not found error
+echo "Ceci n'est pas une page" > /var/www/html/not_found.html
 # storing Hello World in the nginx default html file
 # so when curl is used it return Hello World instead of the default ngnix page
 echo 'Hello World!' > /var/www/html/index.nginx-debian.html
@@ -30,6 +32,11 @@ echo 'server {
                 index index.html index.htm index.nginx-debian.html;
 
                 server_name _;
+
+		error_page 404 /not_found.html;
+                location /not_found.html {
+                        root /var/www/html;
+                }
 
                 location /redirect_me {
                         return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
