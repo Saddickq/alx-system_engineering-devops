@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 # Shorter version of file 0-nginx_likes_port_80
-sudo pkill nginx
-sudo rm -f /etc/nginx/sites-enabled/default
-sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+sed -i "s/8080/80/" /etc/nginx/sites-enabled/default
+sudo service nginx restart
+echo "" > /run/nginx.pid
