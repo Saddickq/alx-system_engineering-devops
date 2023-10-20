@@ -1,2 +1,3 @@
-#!/usr/bin/env/ bash
+#!/usr/bin/env bash
+# script the runs nginx as nginx user not default root
 sed -i 's/#user www-data;/user nginx;/' /etc/nginx/nginx.conf
