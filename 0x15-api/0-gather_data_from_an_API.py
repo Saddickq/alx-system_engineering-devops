@@ -3,9 +3,9 @@
 a Python script that, using a REST API, for a given employee ID,
 returns information about his/her TODO list progress.
 """
-import urllib.request
-from sys import argv
 import json
+from sys import argv
+import urllib.request
 
 
 def main():
