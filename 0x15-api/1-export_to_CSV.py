@@ -20,7 +20,7 @@ def main():
 
     with urllib.request.urlopen(api_url) as response:
         data_dict = json.loads(response.read().decode("utf-8"))
-        emp_name = data_dict.get("name")
+        emp_name = data_dict.get("username")
 
     todo_api = 'https://jsonplaceholder.typicode.com/{}'.format("todos")
     list_dict = []
