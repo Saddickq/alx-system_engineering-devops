@@ -33,12 +33,12 @@ def main():
         temp_dict = {}
         if value.get('userId') == u_id:
             temp_dict['userId'] = u_id
-            temp_dict['name'] = emp_name
+            temp_dict['username'] = emp_name
             temp_dict['completed'] = value.get('completed')
             temp_dict['title'] = value.get('title')
             csv_info.append(temp_dict)
 
-    headers = ['userId', 'name', 'completed', 'title']
+    headers = ['userId', 'username', 'completed', 'title']
     filename = '{}.csv'.format(u_id)
     with open(filename, mode='w', newline='') as csv_file:
         writer = csv.DictWriter(csv_file, quoting=csv.QUOTE_ALL,
