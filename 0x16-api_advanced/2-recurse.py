@@ -12,11 +12,11 @@ def recurse(subreddit, hot_list=[], after=None):
 
     api_url = f'https://www.reddit.com/r/{subreddit}/hot.json?after={after}'
     user = {'User-Agent': 'Dawuni'}
-    response = requests.get(api_url, headers=user)
+    response = requests.get(api_url, headers=user, allow_redirects=False)
 
     if response.status_code == 200:
-        data = response.json().get('data')
-        posts = data.get('children')
+        data = response.json().get('data', {})
+        posts = data.get('children', [])
         for post in posts:
             hot_list.append(post.get('data', {}).get('title'))
 
